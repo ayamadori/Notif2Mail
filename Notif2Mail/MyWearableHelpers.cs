@@ -1,9 +1,7 @@
-﻿using LightBuzz.SMTP;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Email;
@@ -13,6 +11,7 @@ using Windows.Storage;
 using Windows.UI.Notifications;
 using Windows.UI.Notifications.Management;
 using Windows.UI.Popups;
+using LightBuzz.SMTP;
 
 // https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/notification-listener
 

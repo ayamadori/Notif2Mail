@@ -30,7 +30,7 @@
                         <TextBlock Text="Notif2Mail&#xA;Version 1.0.0&#xA;&#xA;Copyright © Ayamadori" TextWrapping="Wrap"/>
                         <HyperlinkButton Content="https://sites.google.com/site/ayamadori/" NavigateUri="https://sites.google.com/site/ayamadori/" HorizontalContentAlignment="Left" />
                         <HyperlinkButton Content="Twitter: @ayamadori" NavigateUri="https://twitter.com/ayamadori" HorizontalContentAlignment="Left"/>
-                        <HyperlinkButton Content="Privacy Policy" NavigateUri="https://github.com/ayamadori/OpenWithMaps/blob/master/PrivacyPolicy.md" HorizontalContentAlignment="Left"/>
+                        <HyperlinkButton Content="Privacy Policy" NavigateUri="https://github.com/ayamadori/Notif2Mail/blob/master/PrivacyPolicy.md" HorizontalContentAlignment="Left"/>
                         <Button Content="Rate this app" Margin="0,24,0,0" Click="Button_Click" />
                         <TextBlock Margin="0,24,0,0" Text="SMTP client for Windows Store" Style="{StaticResource SubtitleTextBlockStyle}"/>
                         <HyperlinkButton Content="https://github.com/LightBuzz/SMTP-WinRT" NavigateUri="https://github.com/LightBuzz/SMTP-WinRT"/>
