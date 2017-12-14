@@ -8,6 +8,36 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Pivot>
+            <PivotItem Header="Settings">
+                <ScrollViewer>
+                    <StackPanel Margin="8">
+                        <TextBlock Text="** Set the app in background to check the incoming notification"/>
+                        <TextBox Margin="0,8,0,0" x:Name="AddressBox" Header="Recipient Address" InputScope="EmailNameOrAddress"/>
+                        <TextBox Margin="0,8,0,0" x:Name="UsernameBox" Header="Username"/>
+                        <PasswordBox Margin="0,8,0,0" x:Name="PassBox" Header="Password" InputScope="Password"/>
+                        <TextBox Margin="0,8,0,0" x:Name="ServerBox" Header="SMTP Server" InputScope="EmailSmtpAddress"/>
+                        <TextBox Margin="0,8,0,0" x:Name="PortBox" Header="Port" InputScope="Number"/>
+                        <CheckBox Margin="0,8,0,0" x:Name="CheckSSL" Content="Need SSL"/>
+                        <Button Margin="0,8,0,0" x:Name="SaveButton" Content="Save" HorizontalAlignment="Stretch" Click="SaveButton_Click"/>
+                        <TextBlock Margin="0,8,0,0" TextWrapping="WrapWholeWords" Text="** Important Note for Gmail&#xA;Since this does not use OAUTH2, Gmail considers this a &quot;less secure app&quot;. To use this with Gmail, the &quot;Access for less secure apps&quot; setting on the account will have to be changed to &quot;Enable&quot;."/>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem Header="About">
+                <ScrollViewer>
+                    <StackPanel Margin="8">
+                        <TextBlock Text="Notif2Mail&#xA;Version 1.0.0&#xA;&#xA;Copyright © Ayamadori" TextWrapping="Wrap"/>
+                        <HyperlinkButton Content="https://sites.google.com/site/ayamadori/" NavigateUri="https://sites.google.com/site/ayamadori/" HorizontalContentAlignment="Left" />
+                        <HyperlinkButton Content="Twitter: @ayamadori" NavigateUri="https://twitter.com/ayamadori" HorizontalContentAlignment="Left"/>
+                        <HyperlinkButton Content="Privacy Policy" NavigateUri="https://github.com/ayamadori/OpenWithMaps/blob/master/PrivacyPolicy.md" HorizontalContentAlignment="Left"/>
+                        <Button Content="Rate this app" Margin="0,24,0,0" Click="Button_Click" />
+                        <TextBlock Margin="0,24,0,0" Text="SMTP client for Windows Store" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <HyperlinkButton Content="https://github.com/LightBuzz/SMTP-WinRT" NavigateUri="https://github.com/LightBuzz/SMTP-WinRT"/>
+                        <TextBlock TextWrapping="WrapWholeWords" Text="The MIT License (MIT)&#xA;&#xA;Copyright (c) 2014 LightBuzz&#xA;&#xA;Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:&#xA;&#xA;The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.&#xA;&#xA;THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."/>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>

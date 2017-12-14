@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Notif2Mail
@@ -94,6 +86,24 @@ namespace Notif2Mail
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: アプリケーションの状態を保存してバックグラウンドの動作があれば停止します
+
+            deferral.Complete();
+        }
+
+        // https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/notification-listener
+        protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            var deferral = args.TaskInstance.GetDeferral();
+
+            switch (args.TaskInstance.Task.Name)
+            {
+                case "UserNotificationChanged":
+                    // Call your own method to process the new/removed notifications
+                    // The next section of documentation discusses this code
+                    await MyWearableHelpers.SyncNotifications();
+                    break;
+            }
+
             deferral.Complete();
         }
     }
