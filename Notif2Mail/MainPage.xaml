@@ -27,14 +27,29 @@
             <PivotItem Header="About">
                 <ScrollViewer>
                     <StackPanel Margin="8">
-                        <TextBlock Text="Notif2Mail&#xA;Version 1.0.0&#xA;&#xA;Copyright © Ayamadori" TextWrapping="Wrap"/>
+                        <TextBlock>
+                            <Run>Notif2Mail</Run><LineBreak/>
+                            <Run>Version 1.0.0</Run><LineBreak/>
+                            <LineBreak/>
+                            <Run>Copyright © Ayamadori</Run>
+                        </TextBlock>
                         <HyperlinkButton Content="https://sites.google.com/site/ayamadori/" NavigateUri="https://sites.google.com/site/ayamadori/" HorizontalContentAlignment="Left" />
                         <HyperlinkButton Content="Twitter: @ayamadori" NavigateUri="https://twitter.com/ayamadori" HorizontalContentAlignment="Left"/>
                         <HyperlinkButton Content="Privacy Policy" NavigateUri="https://github.com/ayamadori/Notif2Mail/blob/master/PrivacyPolicy.md" HorizontalContentAlignment="Left"/>
                         <Button Content="Rate this app" Margin="0,24,0,0" Click="Button_Click" />
                         <TextBlock Margin="0,24,0,0" Text="SMTP client for Windows Store" Style="{StaticResource SubtitleTextBlockStyle}"/>
                         <HyperlinkButton Content="https://github.com/LightBuzz/SMTP-WinRT" NavigateUri="https://github.com/LightBuzz/SMTP-WinRT"/>
-                        <TextBlock TextWrapping="WrapWholeWords" Text="The MIT License (MIT)&#xA;&#xA;Copyright (c) 2014 LightBuzz&#xA;&#xA;Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:&#xA;&#xA;The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.&#xA;&#xA;THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."/>
+                        <TextBlock TextWrapping="WrapWholeWords">
+                            <Run>The MIT License (MIT)</Run><LineBreak/>
+                            <LineBreak/>
+                            <Run>Copyright (c) 2014 LightBuzz</Run><LineBreak/>
+                            <LineBreak/>
+                            <Run>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</Run><LineBreak/>
+                            <LineBreak/>
+                            <Run>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</Run><LineBreak/>
+                            <LineBreak/>
+                            <Run>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</Run>
+                        </TextBlock>
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>

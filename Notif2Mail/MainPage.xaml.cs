@@ -1,5 +1,6 @@
 ﻿using System;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml;

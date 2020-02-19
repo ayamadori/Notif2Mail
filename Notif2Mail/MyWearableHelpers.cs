@@ -1,17 +1,18 @@
-﻿using System;
+﻿using MailKit.Net.Smtp;
+using MimeKit;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
-using Windows.ApplicationModel.Email;
 using Windows.Data.Xml.Dom;
 using Windows.Security.Credentials;
 using Windows.Storage;
 using Windows.UI.Notifications;
 using Windows.UI.Notifications.Management;
 using Windows.UI.Popups;
-using LightBuzz.SMTP;
+using Windows.UI.Xaml.Controls;
 
 // https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/notification-listener
 
@@ -47,8 +48,13 @@ namespace Notif2Mail
 
                     // Show UI explaining that listener features will not
                     // work until user allows access.
-                    var dlg = new MessageDialog("Access request is denied. Go to the Windows settings and manually allow access.");
-                    await dlg.ShowAsync();
+                    ContentDialog diniedDialog = new ContentDialog()
+                    {
+                        Title = "Access denied",
+                        Content = "Access request is denied. Go to Windows Settings and allow access manually.",
+                        CloseButtonText = "Ok"
+                    };
+                    await diniedDialog.ShowAsync();
                     break;
 
                 // This means the user closed the prompt without
@@ -60,15 +66,25 @@ namespace Notif2Mail
                     break;
             }
 
-            // TODO: Request/check background task access via BackgroundExecutionManager.RequestAccessAsync
+            // TODO: request / check background task access via backgroundexecutionmanager.requestaccessasync
             // https://docs.microsoft.com/en-us/windows/uwp/launch-resume/run-a-background-task-on-a-timer-
-            var requestStatus = await BackgroundExecutionManager.RequestAccessAsync();
-            if (requestStatus != BackgroundAccessStatus.AlwaysAllowed)
+            var requeststatus = await BackgroundExecutionManager.RequestAccessAsync();
+            if (requeststatus != BackgroundAccessStatus.AlwaysAllowed)
             {
-                // Depending on the value of requestStatus, provide an appropriate response
+                // depending on the value of requeststatus, provide an appropriate response
                 // such as notifying the user which functionality won't work as expected
-                var dlg = new MessageDialog("Background access is not \"always allowed\". Go to the Windows settings and manually allow access");
-                await dlg.ShowAsync();
+                ContentDialog deniedDialog = new ContentDialog()
+                {
+                    Title = "Notice",
+                    Content = "Background access is not \"Always allowed\". Go to Windows Settings and allow access manually.",
+                    PrimaryButtonText = "Go to Settings",
+                    CloseButtonText = "Back"
+                };
+                deniedDialog.PrimaryButtonClick += async (s, a) =>
+                {
+                    var success = await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:batterysaver-usagedetails"));
+                };
+                await deniedDialog.ShowAsync();
             }
 
             // If background task isn't registered yet
@@ -116,13 +132,13 @@ namespace Notif2Mail
             }
         }
 
-        private static async void SendNotificationToWearable(UserNotification userNotification)
+        private static void SendNotificationToWearable(UserNotification userNotification)
         {
             string titleText = "";
             string bodyText = "";
 
-            // Get the app name
-            String appName = userNotification.AppInfo.DisplayInfo.DisplayName;
+            // Get the app's display name
+            string appDisplayName = userNotification.AppInfo.DisplayInfo.DisplayName;
 
             // Get the toast binding, if present
             NotificationBinding toastBinding = userNotification.Notification.Visual.GetBinding(KnownNotificationBindings.ToastGeneric);
@@ -149,16 +165,28 @@ namespace Notif2Mail
                 return;
             bool ssl = (setting[3] == "1") ? true : false;
 
-            // https://github.com/LightBuzz/smtp-winrt
-            using (SmtpClient client = new SmtpClient(setting[1], Int32.Parse(setting[2]), ssl, setting[4], setting[5]))
+            // https://github.com/jstedfast/MailKit#sending-messages
+            var message = new MimeMessage();
+            message.To.Add(new MailboxAddress("", setting[0]));
+            message.Subject = $"[Notif2Mail] <{appDisplayName}> {titleText}";
+
+            message.Body = new TextPart("plain")
             {
-                EmailMessage emailMessage = new EmailMessage();
+                Text = bodyText
+            };
 
-                emailMessage.To.Add(new EmailRecipient(setting[0]));
-                emailMessage.Subject = $"[Notif2Mail] <{appName}> {titleText}";
-                emailMessage.Body = bodyText;
+            using (var client = new SmtpClient())
+            {
+                // For demo-purposes, accept all SSL certificates (in case the server supports STARTTLS)
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
-                await client.SendMailAsync(emailMessage);
+                client.Connect(setting[1], int.Parse(setting[2]), ssl);
+
+                // Note: only needed if the SMTP server requires authentication
+                client.Authenticate(setting[4], setting[5]);
+
+                client.Send(message);
+                client.Disconnect(true);
             }
         }
 
@@ -227,9 +255,13 @@ namespace Notif2Mail
                     var cred = new PasswordCredential(RESOURCE, username, password);
                     vault.Add(cred);
 
-                    //var dlg = new MessageDialog("Credential saved successfully. Resource: " + cred.Resource + " Username: " + cred.UserName + " Password: " + cred.Password);
-                    var dlg = new MessageDialog("Credential saved successfully.");
-                    await dlg.ShowAsync();
+                    ContentDialog saveSuccessDialog = new ContentDialog()
+                    {
+                        Title = "Success",
+                        Content = "Settings was saved",
+                        CloseButtonText = "Ok"
+                    };
+                    await saveSuccessDialog.ShowAsync();
                 }
             }
         }
