@@ -1,0 +1,27 @@
+﻿<ContentDialog
+    x:Class="Notif2Mail.SettingDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Settings"
+    PrimaryButtonText="Save"
+    CloseButtonText="Back"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+
+    <Grid>
+        <ScrollViewer>
+            <StackPanel Margin="8">
+                <TextBlock Text="** Set the app in background to check the incoming notification" TextWrapping="Wrap"/>
+                <TextBox Margin="0,8,0,0" x:Name="AddressBox" Header="Recipient Address" InputScope="EmailNameOrAddress"/>
+                <TextBox Margin="0,8,0,0" x:Name="UsernameBox" Header="Username"/>
+                <PasswordBox Margin="0,8,0,0" x:Name="PassBox" Header="Password" InputScope="Password"/>
+                <TextBox Margin="0,8,0,0" x:Name="ServerBox" Header="SMTP Server" InputScope="EmailSmtpAddress"/>
+                <TextBox Margin="0,8,0,0" x:Name="PortBox" Header="Port" InputScope="Number"/>
+                <CheckBox Margin="0,8,0,0" x:Name="CheckSSL" Content="Need SSL"/>
+                <TextBlock Margin="0,8,0,0" TextWrapping="WrapWholeWords" Text="** Important Note for Gmail&#xA;Since this does not use OAUTH2, Gmail considers this a &quot;less secure app&quot;. To use this with Gmail, the &quot;Access for less secure apps&quot; setting on the account will have to be changed to &quot;Enable&quot;."/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</ContentDialog>

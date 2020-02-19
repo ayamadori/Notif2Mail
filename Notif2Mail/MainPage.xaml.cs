@@ -1,6 +1,5 @@
 ﻿using System;
 using Windows.ApplicationModel;
-using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -25,32 +24,21 @@ namespace Notif2Mail
         {
             base.OnNavigatedTo(e);
 
-            string settings = MyWearableHelpers.LoadSettings();
-            if (settings != null)
-            {
-                string[] setting = settings.Split(';');
-                AddressBox.Text = setting[0];
-                ServerBox.Text = setting[1];
-                PortBox.Text = setting[2];
-                CheckSSL.IsChecked = (setting[3] == "1") ? true : false;
-                UsernameBox.Text = setting[4];
-                PassBox.Password = setting[5];
-            }
-
             MyWearableHelpers.RegisterBackgroundTask();
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SettingButton_Click(object sender, RoutedEventArgs e)
         {
-            bool ssl = (CheckSSL.IsChecked == true) ? true : false;
-            var roamingSettings = ApplicationData.Current.RoamingSettings;
-            MyWearableHelpers.SaveSettings(AddressBox.Text, ServerBox.Text, Int32.Parse(PortBox.Text), ssl, UsernameBox.Text, PassBox.Password);
+            // https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.controls.contentdialog.aspx
+            var dlg = new SettingDialog();
+            await dlg.ShowAsync();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            var uriReview = new Uri($"ms-windows-store:REVIEW?PFN={Package.Current.Id.FamilyName}");
-            var success = await Launcher.LaunchUriAsync(uriReview);
+            // https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.controls.contentdialog.aspx
+            var dlg = new AboutDialog();
+            await dlg.ShowAsync();
         }
     }
 }
